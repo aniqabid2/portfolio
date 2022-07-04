@@ -235,8 +235,8 @@ h1::after{
     display: none !important;
 }
 .preview-box{
-    width: 80vw;
-    height: 80vh;
+    width: 95vw;
+    height: 90vh;
     background: var(--secondary);
     border: 2px solid var(--theme2-primary);
     position: fixed;
@@ -266,6 +266,7 @@ h1::after{
     height: 30px;
     background: transparent;
     cursor: pointer;
+    border:none;
 }
 .previewBoxCloseBtn span{
     width: 95%;
