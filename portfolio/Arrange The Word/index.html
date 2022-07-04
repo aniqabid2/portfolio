@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <title>Arrange The Word</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+         :root {
+            --main-color: black;
+        }
+        
+        .gameScreen {
+            width: 100vw;
+            height: 100vh;
+            display: grid;
+            place-items: center;
+        }
+        
+        .main_menu,
+        .playScreen,
+        .game_over {
+            width: 800px;
+            height: 500px;
+            background: #192a56;
+            box-shadow: 1px 1px 20px black;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translateX(-50%) translateY(-50%);
+            display: none;
+            grid-template-rows: 25% 25% 50%;
+            border: 10px solid var(--main-color);
+        }
+        
+        .main_menu {
+            display: grid;
+            grid-template-rows: 50% 20%;
+            text-align: center;
+        }
+        
+        .main_menu_top {
+            height: 200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .main_menu_top h1 {
+            color: white;
+            font-size: 70px;
+            animation: pulse 6s infinite linear;
+        }
+        
+        .main_menu_btn button {
+            animation: pulse_btn 3s infinite linear;
+        }
+        
+        .created {
+            display: flex;
+            align-items: flex-end;
+            padding-left: 30px;
+            padding-bottom: 30px;
+        }
+        
+        .created h3 {
+            color: white;
+            cursor: pointer;
+        }
+        
+        .created p {
+            color: white;
+            margin: auto;
+            font-size: 30px;
+            padding-right: 90px;
+        }
+        
+        .hide {
+            display: none;
+        }
+        
+        .show {
+            display: grid;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .header {
+            /* margin-right: 30px; */
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .header h1 {
+            color: white;
+            font-size: 25px;
+            margin-left: 30px;
+            margin-top: 20px;
+            margin-right: 30px;
+        }
+        
+        .show_note {
+            color: white;
+            font-size: 20px;
+            display: inline-block;
+        }
+        
+        .question h1 {
+            color: white;
+            font-size: 40px;
+            text-align: center;
+            line-height: 150px;
+            animation: pulse 8s infinite ease-in-out;
+        }
+        
+        .inputs {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .inputs input {
+            width: 400px;
+            height: 50px;
+            border: none;
+            border-radius: 20px;
+            text-align: center;
+            color: var(--main-color);
+            font-size: 25px;
+            font-weight: 900;
+            letter-spacing: 1px;
+            text-transform: lowercase;
+        }
+        
+        .inputs input:focus {
+            outline: none;
+            border: 5px solid var(--main-color);
+            border-radius: 20px;
+        }
+        
+        button {
+            width: 150px;
+            height: 40px;
+            margin-top: 10px;
+            /* line-height: 40px; */
+            padding: 5px 0px;
+            border: 5px solid black;
+            background: var(--main-color);
+            border-radius: 10px;
+            color: white;
+            font-size: 20px;
+            transition: all .3s ease-in-out;
+        }
+        
+        button:hover {
+            background: rgba(0, 0, 0, 0.671);
+            border: 5px solid black;
+            letter-spacing: 1px;
+        }
+        
+        button:focus {
+            outline: none;
+        }
+        
+        #correct_word {
+            display: none;
+        }
+        
+        .correctAnswer {
+            width: 100%;
+            height: 100px;
+            display: block;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .correctAnswer h2 {
+            color: white;
+            font-size: 30px;
+            display: inline-block;
+        }
+        
+        .correctAnswer button {
+            margin: 0;
+            border-radius: 10;
+            width: 60px;
+            height: 40px;
+            margin-left: 10px;
+            padding: 0 0px;
+        }
+        
+        #correct {
+            background: green;
+        }
+        
+        #wrong {
+            background: #c50f15;
+        }
+        
+        #playScreen {
+            display: none;
+        }
+        
+        .game_over {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-evenly;
+        }
+        
+        .game_over h1 {
+            color: white;
+            font-size: 60px;
+            text-align: center;
+        }
+        
+        .game_over_main h1 {
+            font-size: 30px;
+            text-align: center;
+        }
+        
+        #game_over {
+            display: flex;
+        }
+        
+        .gameEnd {
+            display: none;
+        }
+        /* Animation */
+        
+        @keyframes pulse {
+            0% {
+                text-shadow: 0px 0px 20px white;
+            }
+            50% {
+                text-shadow: 0px 0px 0px white;
+            }
+            100% {
+                text-shadow: 0px 0px 20px white;
+            }
+        }
+        
+        @keyframes pulse_btn {
+            0% {
+                box-shadow: 5px 0px 20px 0px rgba(0, 0, 0, 0.651);
+            }
+            50% {
+                box-shadow: -5px 0px 20px 0px rgba(0, 0, 0, 0.651);
+            }
+            100% {
+                box-shadow: 5px05px 20px 0px rgba(0, 0, 0, 0.651);
+            }
+        }
+        /*===================== Responsive 
+        =======================================================*/
+        
+        @media screen and (max-width:850px) {
+            .main_menu,
+            .playScreen,
+            .game_over {
+                width: 100%;
+                height: 100%;
+            }
+            .question h1 {
+                font-size: 50px;
+                line-height: 150px;
+            }
+            .inputs input {
+                width: 500px;
+                height: 60px;
+                font-size: 25px;
+            }
+        }
+        
+        @media screen and (max-width:700px) {
+            .question h1 {
+                font-size: 40px;
+                line-height: 150px;
+            }
+            .header h2 {
+                font-size: 20px;
+            }
+            .inputs input {
+                width: 400px;
+                height: 60px;
+                font-size: 25px;
+            }
+        }
+        
+        @media screen and (max-width:560px) {
+            .main_menu_top h1 {
+                margin-top: 100px;
+                font-size: 70px;
+            }
+            .header h2 {
+                font-size: 15px;
+            }
+            .question h1 {
+                font-size: 30px;
+                line-height: 250px;
+            }
+            .inputs input {
+                width: 300px;
+                height: 50px;
+                font-size: 25px;
+            }
+        }
+        
+        @media screen and (max-width:460px) {
+            .main_menu_top h1 {
+                margin-top: 100px;
+                font-size: 70px;
+            }
+            .question h1 {
+                font-size: 25px;
+                line-height: 250px;
+            }
+            .inputs input {
+                width: 280px;
+                height: 40px;
+                font-size: 15px;
+            }
+            button {
+                width: 133px;
+                height: 30px;
+                line-height: 20px;
+                padding: 0px 13px;
+                font-size: 13px;
+            }
+            .header h1 {
+                font-size: 20px;
+            }
+        }
+        
+        @media screen and (max-width:350px) {
+            .main_menu_top h1 {
+                margin-top: 100px;
+                font-size: 50px;
+            }
+            .created h3 {
+                font-size: 10px;
+            }
+            .created p {
+                font-size: 15px;
+            }
+            .question h1 {
+                font-size: 20px;
+                line-height: 250px;
+            }
+            .inputs input {
+                width: 200px;
+                height: 40px;
+                font-size: 15px;
+            }
+            button {
+                width: 130px;
+                height: 30px;
+                line-height: 18px;
+                padding: 2px 3px;
+                font-size: 10px;
+            }
+            .header h1 {
+                font-size: 17px;
+                text-align: center;
+            }
+            .game_over h1 {
+                font-size: 50px;
+            }
+            .game_over_main h1 {
+                font-size: 20px;
+            }
+        }
+        
+        @media screen and (max-width:300px) {
+            .header h1 {
+                font-size: 15px;
+            }
+            .game_over h1 {
+                font-size: 40px;
+            }
+            .game_over_main h1 {
+                font-size: 20px;
+            }
+            .correctAnswer h2 {
+                font-size: 20px;
+            }
+            .correctAnswer button {
+                width: 50px;
+                height: 30px;
+            }
+            /* .inputs input {
+                width: 100px;
+                height: 60px;
+                font-size: 25px;
+            } */
+        }
+        /* Heights */
+        
+        @media screen and (max-height:600px) {
+            .question h1 {
+                font-size: 25px;
+                line-height: 150px;
+            }
+            button {
+                padding: 0px 10px;
+                font-size: 10px;
+            }
+            .main_menu_top {
+                height: 200px;
+            }
+            .main_menu_top h1 {
+                font-size: 50px;
+            }
+            .main_menu_btn button {
+                font-size: 15px;
+                margin-top: 60px;
+            }
+            .inputs input {
+                width: 200px;
+                height: 30px;
+                font-size: 15px;
+            }
+        }
+        
+        @media screen and (max-height:500px) {
+            .question h1 {
+                font-size: 25px;
+                line-height: 150px;
+            }
+            button {
+                padding: 0px 10px;
+                font-size: 10px;
+            }
+            .main_menu_top {
+                height: 200px;
+            }
+            .main_menu_top h1 {
+                font-size: 50px;
+            }
+            .main_menu_btn button {
+                font-size: 15px;
+                margin-top: 0px;
+            }
+            .inputs input {
+                width: 200px;
+                height: 30px;
+                font-size: 15px;
+            }
+        }
+        
+        @media screen and (max-height:400px) {
+            .main_menu_top {
+                height: 70px;
+            }
+            .main_menu_top h1 {
+                font-size: 40px;
+            }
+            .question h1 {
+                font-size: 20px;
+                line-height: 50px;
+            }
+            .correctAnswer h2 {
+                font-size: 20px;
+            }
+            .correctAnswer button {
+                width: 40px;
+                height: 30px;
+            }
+            .correctAnswer {
+                height: 50px;
+            }
+            .inputs input {
+                font-size: 15px;
+            }
+        }
+        
+        @media screen and (max-height:280px) {
+            .main_menu_top {
+                height: 20px;
+            }
+            .main_menu_btn button {
+                font-size: 15px;
+                margin-top: 0px;
+                width: 130px;
+                height: 30px;
+            }
+            .created {
+                padding: 2px;
+                padding-left: 20px;
+                padding-right: 0;
+            }
+            .created h3 {
+                font-size: 10px;
+            }
+            .created p {
+                font-size: 15px;
+                margin-top: 0;
+                margin-bottom: 0;
+                margin-left: 50px;
+            }
+            .question h1 {
+                font-size: 20px;
+                line-height: 50px;
+            }
+            .inputs input {
+                font-size: 15px;
+            }
+            .correctAnswer {
+                height: 35px;
+            }
+            button {
+                padding: 0px 7px;
+                width: 100px;
+                height: 20px;
+                line-height: 10px;
+                font-size: 10px;
+            }
+        }
+        
+        @media screen and (max-height:233px) {
+            .main_menu_top {
+                height: 20px;
+            }
+            .main_menu_btn button {
+                font-size: 15px;
+                margin-top: 30px;
+            }
+            .question h1 {
+                font-size: 25px;
+                line-height: 40px;
+            }
+            .inputs input {
+                width: 230px;
+                height: 25px;
+                font-size: 13px;
+            }
+        }
+        
+        @media screen and (max-width:247px) {
+            .main_menu,
+            .playScreen,
+            .game_over {
+                width: 100%;
+                height: 100%;
+            }
+            .main_menu_top h1 {
+                font-size: 27px;
+            }
+            .created h3 {
+                font-size: 8px;
+            }
+            .created p {
+                font-size: 10px;
+            }
+            .question h1 {
+                font-size: 15px;
+                line-height: 100px;
+            }
+            .show_note {
+                font-size: 10px;
+            }
+            .inputs input {
+                width: 150px;
+                height: 30px;
+                font-size: 14px;
+            }
+            .correctAnswer h2 {
+                font-size: 10px;
+                height: 20px;
+                line-height: 20px;
+            }
+            .correctAnswer button {
+                width: 40px;
+                height: 20px;
+                font-size: 10px;
+            }
+            .header h1 {
+                font-size: 8px;
+                margin-left: 20px;
+                margin-top: 20px;
+                margin-right: 20px;
+            }
+            .game_over h1 {
+                font-size: 30px;
+            }
+            .game_over_main h1 {
+                font-size: 20px;
+            }
+        }
+        
+        @media screen and (max-height:280px) {
+            .main_menu_top {
+                height: 20px;
+            }
+            .main_menu_btn button {
+                font-size: 15px;
+                margin-top: 60px;
+                width: 130px;
+                height: 30px;
+            }
+            .question h1 {
+                font-size: 20px;
+                line-height: 50px;
+            }
+            .correctAnswer {
+                height: 35px;
+            }
+            button {
+                padding: 0px 7px;
+                width: 100px;
+                height: 20px;
+                line-height: 10px;
+                font-size: 10px;
+            }
+        }
+        
+        @media screen and (max-height:233px) {
+            .main_menu_top {
+                height: 20px;
+            }
+            .main_menu_btn button {
+                font-size: 15px;
+                margin-top: 30px;
+            }
+            .question h1 {
+                font-size: 25px;
+                line-height: 40px;
+            }
+            .inputs input {
+                width: 180px;
+                height: 25px;
+                font-size: 13px;
+            }
+        }
+        
+        @media screen and (max-width:169px) {
+            .question h1 {
+                font-size: 15px;
+                line-height: 50px;
+            }
+            .inputs input {
+                width: 100px;
+                height: 20px;
+                font-size: 10px;
+            }
+            .correctAnswer h2 {
+                font-size: 10px;
+                height: 20px;
+                line-height: 20px;
+            }
+            .correctAnswer button {
+                width: 40px;
+                height: 20px;
+                font-size: 10px;
+            }
+            .game_over h1 {
+                font-size: 20px;
+            }
+            .game_over_main h1 {
+                font-size: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="gameScreen">
+
+
+        <div class="main_menu">
+            <div class="main_menu_top">
+                <h1>Arrange The Word</h1>
+            </div>
+            <div class="main_menu_btn">
+                <button onclick="play()">Play</button>
+            </div>
+            <div class="created">
+                <h3 onclick="madeBy()">Creator</h3>
+                <p id="creatorName" class="hide">Aniq Abid</p>
+            </div>
+        </div>
+
+        <div class="playScreen">
+            <div class="header">
+                <h1 id="sore">Score
+                    <spna id="score">0</spna>
+                </h1>
+                <!-- <h2>Arrange Word</h2> -->
+                <h1 id="time">Time Left <span id="timer"></span></h1>
+            </div>
+            <div class="question">
+                <h1 id="displayinput"><span id="correct_word"></span> </h1>
+            </div>
+            <div class="inputs">
+                <input type="text" id="answerinput">
+                <button onclick="showanswer()" id="showbtn">Show Answer</button>
+            </div>
+
+            <div class="correctAnswer"></div>
+
+        </div>
+
+        <div class="game_over">
+            <div class="game_over_top">
+                <h1>Game Over</h1>
+            </div>
+            <div class="game_over_main">
+                <h1>Your Score<br>
+                    <spna id="scoreTotal">0</spna>
+                </h1>
+            </div>
+            <div class="game_over_bottom">
+                <button onclick="location.reload()">Play Again</button>
+            </div>
+        </div>
+
+
+    </div>
+
+
+    <script>
+        const words = [{
+                word: "iqan",
+                correctWord: "aniq"
+            }, {
+                word: "keydroab",
+                correctWord: "keyboard"
+            }, {
+                word: "Pakintas",
+                correctWord: "pakistan"
+            }, {
+                word: "kacahri",
+                correctWord: "karachi"
+            }, {
+                word: "woc",
+                correctWord: "cow"
+            }, {
+                word: "bomile",
+                correctWord: "mobile"
+            }, {
+                word: "rood",
+                correctWord: "door"
+            }, {
+                word: "noolba",
+                correctWord: "baloon"
+            }, {
+                word: "tuo",
+                correctWord: "out"
+            }, {
+                word: "elepanth",
+                correctWord: "elephant"
+            }, {
+                word: "fgor",
+                correctWord: "frog"
+            }, {
+                word: "rowd",
+                correctWord: "word"
+            }, {
+                word: "toplap",
+                correctWord: "laptop"
+            }, {
+                word: "nam",
+                correctWord: "man"
+            }, {
+                word: "neh",
+                correctWord: "hen"
+            }, {
+                word: "boltet",
+                correctWord: "bottle"
+            }, {
+                word: "ingk",
+                correctWord: "king"
+            }, {
+                word: "grin",
+                correctWord: "ring"
+            }, {
+                word: "bubleb",
+                correctWord: "bubble"
+            }, {
+                word: "peej",
+                correctWord: "jeep"
+            }, {
+                word: "pega",
+                correctWord: "page"
+            }, {
+                word: "acr",
+                correctWord: "car"
+            }, {
+                word: "tike",
+                correctWord: "kite"
+            }, {
+                word: "ionl",
+                correctWord: "lion"
+            }, {
+                word: "ozo",
+                correctWord: "zoo"
+            }, {
+                word: "namgo",
+                correctWord: "mango"
+            }, {
+                word: "reet",
+                correctWord: "tree"
+            }, {
+                word: "wahct",
+                correctWord: "watch"
+            }, {
+                word: "maazgine",
+                correctWord: "magazine"
+            }, {
+                word: "meraca",
+                correctWord: "camera"
+            }, {
+                word: "logynotech",
+                correctWord: "technology"
+            }, {
+                word: "nepapwers",
+                correctWord: "newspaper"
+            }, {
+                word: "resranttau",
+                correctWord: "restaurant"
+            }, {
+                word: "tingpain",
+                correctWord: "painting"
+            }, {
+                word: "chingtea",
+                correctWord: "teaching"
+            }, {
+                word: "luef",
+                correctWord: "fuel"
+            }, {
+                word: "hopterceli",
+                correctWord: "helicopter"
+            }, {
+                word: "diersol",
+                correctWord: "soldier"
+            }, {
+                word: "alts",
+                correctWord: "salt"
+            }, {
+                word: "cotormycle",
+                correctWord: "motorcycle"
+            }, {
+                word: "phos",
+                correctWord: "shop"
+            }, {
+                word: "ringdaw",
+                correctWord: "drawing"
+            }, {
+                word: "ostfawer",
+                correctWord: "software"
+            }, {
+                word: "byu",
+                correctWord: "buy"
+            }, {
+                word: "ersonalp",
+                correctWord: "personal"
+            }, {
+                word: "nair",
+                correctWord: "rain"
+            }, {
+                word: "gationvestini",
+                correctWord: "investigation"
+            },
+
+        ]
+
+
+        let time = 30000;
+        let timeshow = 30;
+
+        const displayinput = document.getElementById("displayinput");
+        const correctWord = document.getElementById("correct_word");
+        const showAnswerDiv = document.getElementsByClassName("correctAnswer")[0];
+
+        const mainMenu = document.getElementsByClassName("main_menu")[0];
+        const playScreen = document.getElementsByClassName("playScreen")[0];
+        const gameOver = document.getElementsByClassName("game_over")[0];
+
+        // Sounds 
+        const coundownSound = new Audio("sounds/countdown.wav");
+        const gameOverSound = new Audio("sounds/game over.wav");
+        const completeSound = new Audio("sounds/complete.mp3");
+        const correctSound = new Audio("sounds/correct answer.mp3");
+        const wrongSound = new Audio("sounds/wrong answer.wav");
+
+        const showScore = document.getElementById("score");
+        const scoreTotal = document.getElementById("scoreTotal");
+
+        const showTimer = document.getElementById("timer").innerHTML = timeshow;
+
+        let displayTime = setInterval(displayTimer, 1000);
+        let timeOut = setTimeout(setTimer, time);
+
+        clearInterval(displayTime);
+        clearTimeout(timeOut)
+            // console.log(displayanswer);
+            // let wordIndex = Math.floor(Math.random() * words.length);
+        let numbersArray = createArrayOfNumber(0, words.length - 1);
+        let score = 0;
+        let totalScore = 0;
+        let timer = timeshow;
+
+
+        function play() {
+            mainMenu.setAttribute("id", "main_menu");
+            playScreen.classList.add("show");
+            displayTime = setInterval(displayTimer, 1000);
+            timeOut = setTimeout(setTimer, time);
+        }
+
+        function lordWords() {
+            let randomIndex = getRandomNumber(0, numbersArray.length - 1);
+            let randomNumber = numbersArray[randomIndex];
+            numbersArray.splice(randomIndex, 1);
+            // if ( == null) {
+            //     document.getElementById("showbtn").setAttribute("class", "gameEnd");
+            //     document.getElementById("answerinput").setAttribute("class", "gameEnd");
+            //     document.getElementById("sore").setAttribute("class", "gameEnd");
+            //     document.getElementById("time").setAttribute("class", "gameEnd");
+
+            //     displayinput.innerHTML = ` <h2 class="show_note" style="font-size:70px;line-height:0px;">You Are Genius</h2> <br> <p>Game Complete</p>`;
+            // }
+            if (numbersArray.length < words.length) {
+                // console.log(randomNumber);
+                displayinput.innerHTML = ` <h2 class="show_note">Arrange Word : </h2> ${words[randomNumber].word}`;
+                correctWord.innerHTML = words[randomNumber].correctWord;
+            }
+
+        }
+        lordWords();
+
+        function next() {
+            // ordIndex++;w
+            // wordIndex = Math.floor(Math.random() * words.length);
+            lordWords();
+            document.getElementById("answerinput").value = null;
+            playScreen.removeAttribute("id");
+            showAnswerDiv.innerHTML = ``;
+            document.getElementById("timer").innerText = timeshow;
+            timeOut = setTimeout(setTimer, time);
+            displayTime = setInterval(displayTimer, 1000);
+
+            score++;
+            totalScore++;
+
+            showScore.innerHTML = score;
+            completeSound.play();
+
+        }
+
+        function showanswer() {
+            let answerinput = document.getElementById("answerinput").value.toLowerCase();
+            wrongSound.pause();
+
+            if (answerinput == correctWord.innerHTML) {
+                playScreen.setAttribute("id", "correct");
+                showAnswerDiv.innerHTML = `<h2>Correct Answer</h2> <button onclick="next()">Next</button>`;
+                coundownSound.pause();
+
+                clearTimeout(timeOut);
+                clearInterval(displayTime);
+                timer = timeshow;
+                correctSound.load();
+                correctSound.play();
+
+            } else {
+                playScreen.setAttribute("id", "wrong");
+                showAnswerDiv.innerHTML = `<h2>Wrong Answer</h2>`;
+                wrongSound.load()
+                wrongSound.play();
+            }
+        }
+
+        function setTimer() {
+            gameOver.setAttribute("id", "game_over");
+            playScreen.setAttribute("id", "playScreen");
+            scoreTotal.innerHTML = totalScore;
+            gameOverSound.play();
+            coundownSound.pause();
+            clearInterval(displayTime);
+        }
+
+        function displayTimer() {
+            timer--;
+            if (timer == 0) {
+                timer = timeshow;
+            }
+            if (timer < 6) {
+                coundownSound.load();
+                coundownSound.play();
+            }
+            document.getElementById("timer").innerText = timer;
+
+        }
+
+        // Random Numbers 
+        function getRandomNumber(min, max) {
+            let step1 = max - min + 1;
+            let step2 = Math.random() * step1;
+            let result = Math.floor(step2) + min;
+            return result;
+        }
+
+        function createArrayOfNumber(start, end) {
+            let myArray = [];
+
+            for (let i = start; i <= end; i++) {
+                myArray.push(i);
+            }
+            return myArray
+        }
+
+        function madeBy() {
+            let HideShow = document.getElementById("creatorName").getAttribute("class");
+
+            if (HideShow) {
+                document.getElementById("creatorName").removeAttribute("class");
+            } else {
+                document.getElementById("creatorName").setAttribute("class", "hide");
+            }
+        }
+    </script>
+</body>
+
+</html>

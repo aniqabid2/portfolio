@@ -1,0 +1,408 @@
+/* Max Width 1550px */
+@media (max-width:1550px) {
+    .portfolio-box h3{
+        font-size: 25px;
+    }
+    .aboutme-section .aboutme-content{
+        width: 80%;
+    }
+}
+/* Max Width 1430px */
+@media (max-width:1430px) {
+    nav ul{
+        margin-left: 60px;
+    }
+    .portfolio-box h3{
+        font-size: 20px;
+    }
+    .aboutme-section .aboutme-content{
+        width: 88%;
+    }
+}
+/* Max Width 1260px */
+@media (max-width:1260px) {
+    nav{
+        padding: 0 20px;
+    }
+    nav ul{
+        margin-left: 40px;
+    }
+    .aboutme-section .aboutme-content{
+        width: 90%;
+    }
+    .aboutme-img{
+        width: 30%;
+    }
+    .aboutme-box{
+        width: 70%;
+    }
+}
+/* Max Width 1190px */
+@media (max-width:1190px) {
+    nav{
+        height: 40px;
+    }
+    nav .logo{
+        font-size: 20px;
+    }
+    nav ul{
+        margin-left: 20px;
+    }
+    nav .nav-link{
+        font-size: 13px;
+        padding-bottom: 10px;
+    }
+    .portfolio-box h3{
+        font-size: 18px;
+    }
+    .btn2{
+        font-size: 10px;
+        padding: 5px;
+    }
+    .section-portfolio{
+        padding: 40px 0;
+    }
+    .section-portfolio .btn-group{
+        margin: 0;
+        padding-bottom: 20px;
+        height: 100px;
+        align-items: center;
+    }
+    .portfolio-boxes{
+        flex-wrap: wrap;
+        /* margin:0; */
+    }
+    .portfolio-box{
+        width: 47%;
+        margin: 10px;
+    }
+    /* Aboutme  */
+    .aboutme-content{
+       flex-direction: column-reverse;
+       -ms-flex-direction: column-reverse;
+       align-items: center;
+       
+    }
+    .aboutme-content h2{
+        text-align: center;
+    }
+    .aboutme-img{
+        height: 300px;
+        transform: translateX(20px);
+        -o-transform: translateX(20px) ;
+    -ms-transform: translateX(20px) ;
+    -moz-transform: translateX(20px) ;
+    -webkit-transform:  translateX(20px);
+    }
+    .aboutme-box{
+        width: 100%;
+    }
+    .aboutme-box h2{
+        font-size: 50px;
+    }
+    .aboutme-box h6{
+        text-align: center;
+    }
+    .aboutme-box p{
+        padding: 0 200px;
+        text-align: justify;
+    }
+}
+/* Max Width 980px */
+@media (max-width:980px) {
+    nav{
+        padding: 0 10px;
+    }
+    nav ul{
+        margin-left: 10px;
+    }
+    .hero-bg-part{
+        width: 40%;
+    }
+    .profile-picture{
+        width: 400px;
+        height: 400px;
+    }
+    h2{
+        font-size: 60px;
+    }
+    h2 span{
+        font-size: 75px;
+    }
+    h3{
+        font-size: 20px;
+    }
+    .btn{
+        font-size: 11px;
+        padding: 5px;
+    }
+    .btn:hover{
+        padding-top: 7px;
+    }
+    .skills-boxes .skill-box{
+        width: 100%;
+    }
+    /* About me  */
+    .aboutme-box p{
+        padding: 0 100px;
+    }
+    .aboutme-img{
+        width: 40%;
+    }
+}
+/* Max Width 800px */
+@media (max-width:800px) {
+    .hero-bg-part{
+        width: 35%;
+    }
+    .profile-picture{
+        width: 350px;
+        height: 350px;
+    }
+    h2{
+        font-size: 50px;
+    }
+    h2 span{
+        font-size: 65px;
+    }
+    h3{
+        font-size: 18px;
+    }
+    .btn{
+        font-size: 10px;
+        padding: 5px 3px;
+    }
+    .section-skills .btn{
+        font-size: 11px;
+
+    }
+     /* About me  */
+     .aboutme-box p{
+        padding: 0 30px;
+    }
+    .aboutme-img{
+        width: 45%;
+        
+    }
+}
+/* Max Width 746px */
+@media (max-width:746px) {
+    .hero-bg-part{
+        width: 100%;
+        height:40vh;
+        clip-path: polygon(0% 15%, 0 0, 15% 0%, 85% 0%, 100% 0, 100% 15%, 100% 85%, 85% 85%, 85% 100%, 15% 100%, 15% 85%, 0% 85%);
+
+    }
+    .hero-content-box{
+        flex-direction: column-reverse;
+        -ms-flex-direction: column-reverse;
+        justify-content: center;
+    }
+    .left{
+        display: flex;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        flex-direction: column;
+        -ms-flex-direction: column;
+        align-items: center;
+    }
+    nav{
+        transform: translateZ(2000px);
+        -o-transform:translateZ(2000px) ;
+    -ms-transform:translateZ(2000px) ;
+    -moz-transform:translateZ(2000px) ;
+    -webkit-transform: translateZ(2000px);
+        display: flex;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        flex-wrap: wrap;
+        padding: 0;
+        justify-content: space-around;
+    }
+    nav::after{
+        content: '';
+        width: 100%;
+        height: 2px;
+        display: block;
+        background: #000;
+       
+    }
+    nav .logo{
+        color: #000;
+        font-weight: 900;
+    }
+    nav .nav-link{
+        color: black;
+    }
+    .nav-light .nav-link{
+        color: white;
+    }
+    .nav-light .logo{
+        color: white;
+    }
+    .nav-light::after{
+        display: none;
+    }
+    .nav-light .nav-link.active,
+    .nav-light .nav-link:hover{
+        color: black;
+    }
+    .profile-picture{
+        border-radius: 50%;
+    }
+    .portfolio-box{
+        width: 80%;
+        margin: 20px;
+    }
+    .portfolio-box:nth-child(even){
+        transform: translateY(0px);
+        -o-transform: translateY(0px) ;
+    -ms-transform:  translateY(0px);
+    -moz-transform: translateY(0px) ;
+    -webkit-transform: translateY(0px) ;
+    }
+    .portfolio-box:last-child{
+        margin-bottom: 0;
+    }
+    .section-portfolio .btn-group{
+        padding-bottom: 50px;
+        height: 00px;
+    }
+}
+/* Max Width 615px */
+@media (max-width:615px) {
+    .profile-picture{
+        width: 310px;
+        height: 310px;
+    }
+    .skills-boxes .skill-box{
+        padding: 40px 40px;
+    }
+     /* About me  */
+     .aboutme-box p{
+        padding: 0 10px;
+    }
+    .aboutme-img{
+        width: 50%;
+        
+    }
+}
+/* Max Width 526px */
+@media (max-width:526px) {
+   h1{
+    font-size: 40px;
+   }
+   nav {
+    margin-bottom: 30px;
+    justify-content: space-between;
+   }
+   nav .logo{
+    margin: 10px;
+   }
+   nav ul {
+    width: 100%;
+    margin: 0;
+    height: 100vh;
+    background: rgb(0, 0, 0);
+    position: absolute;
+    left: -100%;
+    top: 0;
+    flex-direction: column;
+    -ms-flex-direction: column;
+    align-items: center;
+    justify-content: center;
+   }
+   nav ul li{
+    margin: 20px;
+   }
+   nav .nav-link{
+    color: white;
+   }
+   .navBtn{
+    display: block;
+    background: transparent;
+    border-radius: 5px;
+    padding: 2px;
+    margin: 5px;
+    margin-right: 20px;
+    z-index: 99999;
+   }
+   .nav-light{
+    height: 60px;
+    margin-bottom: 0;
+   }
+   .nav-light .navBtn{
+    margin: 5px 10px;
+    height: 30px;
+    width: 35px;
+   }
+   .nav-light .navBtn.nav-open span{
+    margin: 4px 0;
+   }
+}
+/* Max Width 490px */
+@media (max-width:490px) {
+  .profile-picture{
+    width: 280px;
+    height: 280px;
+  }
+  .aboutme-box{
+    padding: 0;
+  }
+  .aboutme-img{
+    width: 60%;
+  }
+}
+/* Max Width 430px */
+@media (max-width:430px) {
+    .profile-picture{
+      width: 270px;
+      height: 270px;
+    }
+    
+}
+/* Max Width 365px */
+@media (max-width:365px) {
+    h2{
+        font-size: 40px;
+    }
+    h2 span{
+        font-size: 55px;
+    }
+    h3{
+        font-size: 15px;
+    }
+    .hero-content-box .btn{
+        width: 70px;
+    }
+}
+/* Max Height 730px */
+@media (max-height:730px) {
+    .aboutme-section{
+        height: 100vh;
+    }
+    .aboutme-img{
+        height: 250px;
+    }
+}
+/* Max Height 650px */
+@media (max-height:650px) {
+    .aboutme-section{
+        height: 110vh;
+    }
+    .aboutme-box h2{
+        font-size: 35px;
+    }
+}
+/* Max Height 570px */
+@media (max-height:570px) {
+    .aboutme-section{
+        height: 110vh;
+    }
+    .aboutme-img{
+        height: 200px;
+    }
+    .aboutme-box p{
+        font-size: 12px;
+    }
+}
