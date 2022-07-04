@@ -235,8 +235,8 @@ h1::after{
     display: none !important;
 }
 .preview-box{
-    width: 96vw;
-    height: 96vh;
+    width: 80vw;
+    height: 80vh;
     background: var(--secondary);
     border: 2px solid var(--theme2-primary);
     position: fixed;
